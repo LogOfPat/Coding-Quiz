@@ -1,26 +1,43 @@
 body {
     background-color: darkslategray;
     color: lightyellow;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 .wrapper {
     padding: 30px;
+    margin: 25px 15%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
 }
 
-header {
+.flex-header{
+    display:flex;
+    flex-wrap: wrap;
     justify-content: space-around;
-    display: flexbox;
+}
+
+.score{
+    align-content: flex-start;
+    align-content: flex-end;
 }
 
 button {
-    background-color:brown;
+    background-color:rgb(140, 29, 29);
     color: lightyellow;
     border: none;
+    margin: 10px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
+.answer{
+    flex-direction: column;
+}
 .card{
     text-align: center;
     background-color: rgb(73, 120, 120);
     border-radius: 4px;
+    padding: 50px;
 }
 
