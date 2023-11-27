@@ -180,13 +180,16 @@ function startGame(event) {
     quizMenu.style.display = "block";
     var timer = 6;
     var set = 0;
+    console.log(timer);
     runQuiz(timer, set);
     
 };
 
 function runQuiz(timerCount, set) {
-
-    if(timerCount=0 || set >= 6){
+    console.log("after " + timerCount)
+    var returnTime = timerCount;
+    var returnSet = set;
+    if(timerCount === 0 || set >= 6){
         scoreMenu();
     }
     else{
@@ -199,16 +202,24 @@ function runQuiz(timerCount, set) {
         
         // creates event listeners for the HTML elements
         a1.addEventListener("click", function (event) {
-            checkAnswer(event, answer1, timerCount, set)
+           var returnTime = checkAnswer(event, answer1, timerCount)
+           returnSet++;
+           runQuiz(returnTime, returnSet);
         });
         a2.addEventListener("click", function (event) {
-            checkAnswer(event, answer2, timerCount,set)
+            var returnTime = checkAnswer(event, answer2, timerCount)
+            returnSet++;
+            runQuiz(returnTime, returnSet);
         });
         a3.addEventListener("click", function (event) {
-            checkAnswer(event, answer3, timerCount, set)
+            var returnTime = checkAnswer(event, answer3, timerCount)
+            returnSet++;
+            runQuiz(returnTime, returnSet);
         });
         a4.addEventListener("click", function (event) {
-            checkAnswer(event, answer4, timerCount, set)
+            var returnTime = checkAnswer(event, answer4, timerCount)
+            returnSet++;
+            runQuiz(returnTime, returnSet);
         });
 
         // selects the answers and questions from quizTotal
@@ -225,11 +236,15 @@ function runQuiz(timerCount, set) {
         a2.innerText = answer2.answer;
         a3.innerText = answer3.answer;
         a4.innerText = answer4.answer;
-        counterTime.innerText = "Timer: " + timerCount;
+        counterTime.innerText = "Timer: " + timerCount.toString();
+
+        console.log(returnSet);
+        console.log(returnTime);
+
     }
 };
 
-function checkAnswer(event, answer, timerCount, set) {
+function checkAnswer(event, answer, timerCount) {
     event.stopPropagation();
     var feedback = document.getElementById("feedback");
     var timer = timerCount;
@@ -241,6 +256,5 @@ function checkAnswer(event, answer, timerCount, set) {
         feedback.innerText = "Try again!"
         timer--;
     }
-    set++
-    runQuiz(timer,set);
+    return timer;
 };
