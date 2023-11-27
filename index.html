@@ -10,8 +10,8 @@
   <body>
     <div class = "wrapper">
         <header>
-            <h3>View score </h3>
-            <h3 id="timer">Timer: - </h3>
+            <h3 id = "score" class="score">View score </h3>
+            <h3 id="timer" class="timer">Timer: - </h3>
         </header>
         <div class = "card">
           <!--StartMenu-->
@@ -35,9 +35,22 @@
               <p id="feedback"></p>  
             </div>
           </div>
+          <!--Final score-->
+          <div id = "finalScore">
+            <p id = final1>Your final score was:-</p>
+            <label for = initials>Enter your initials:</label>
+            <input type="text" id="initials">
+            <button id="submit">Submit score</button>
+
+          </div>
           <!--Highscore-->
           <div id="highscore">
-            <p>test</p>
+            <p id="header">Highscore!</p>
+            <div id="scoreList">
+
+            </div>
+            <button id="return">Try again!</button>
+            <button id="clearScore">Clear scores</button>
           </div>
         </div>
     
