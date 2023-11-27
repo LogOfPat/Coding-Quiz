@@ -186,44 +186,50 @@ function startGame(event) {
 
 function runQuiz(timerCount, set) {
 
-    var q = document.getElementById("question");
-    var a1 = document.getElementById("answer1");
-    var a2 = document.getElementById("answer2");
-    var a3 = document.getElementById("answer3");
-    var a4 = document.getElementById("answer4");
-    var feedback = document.getElementById("feedback");
-    
-    // creates event listeners for the HTML elements
-    a1.addEventListener("click", function (event) {
-        checkAnswer(event, answer1, timerCount)
-    });
-    a2.addEventListener("click", function (event) {
-        checkAnswer(event, answer2, timerCount)
-    });
-    a3.addEventListener("click", function (event) {
-        checkAnswer(event, answer3, timerCount)
-    });
-    a4.addEventListener("click", function (event) {
-        checkAnswer(event, answer4, timerCount)
-    });
+    if(timerCount=0 || set >= 6){
+        scoreMenu();
+    }
+    else{
+        var q = document.getElementById("question");
+        var a1 = document.getElementById("answer1");
+        var a2 = document.getElementById("answer2");
+        var a3 = document.getElementById("answer3");
+        var a4 = document.getElementById("answer4");
+        var counterTime = document.getElementById("timer");
+        
+        // creates event listeners for the HTML elements
+        a1.addEventListener("click", function (event) {
+            checkAnswer(event, answer1, timerCount, set)
+        });
+        a2.addEventListener("click", function (event) {
+            checkAnswer(event, answer2, timerCount,set)
+        });
+        a3.addEventListener("click", function (event) {
+            checkAnswer(event, answer3, timerCount, set)
+        });
+        a4.addEventListener("click", function (event) {
+            checkAnswer(event, answer4, timerCount, set)
+        });
 
-    // selects the answers and questions from quizTotal
-    var question = quizTotal[0][set];
-    var answer1 = quizTotal[1][set][0];
-    var answer2 = quizTotal[1][set][1];
-    var answer3 = quizTotal[1][set][2];
-    var answer4 = quizTotal[1][set][3];
-    
-    
-    // changes the text of the buttons
-    q.innerText = question;
-    a1.innerText = answer1.answer;
-    a2.innerText = answer2.answer;
-    a3.innerText = answer3.answer;
-    a4.innerText = answer4.answer;
+        // selects the answers and questions from quizTotal
+        var question = quizTotal[0][set];
+        var answer1 = quizTotal[1][set][0];
+        var answer2 = quizTotal[1][set][1];
+        var answer3 = quizTotal[1][set][2];
+        var answer4 = quizTotal[1][set][3];
+        
+        
+        // Updates html elements with appropriate values
+        q.innerText = question;
+        a1.innerText = answer1.answer;
+        a2.innerText = answer2.answer;
+        a3.innerText = answer3.answer;
+        a4.innerText = answer4.answer;
+        counterTime.innerText = "Timer: " + timerCount;
+    }
 };
 
-function checkAnswer(event, answer, timerCount) {
+function checkAnswer(event, answer, timerCount, set) {
     event.stopPropagation();
     var feedback = document.getElementById("feedback");
     var timer = timerCount;
@@ -233,5 +239,8 @@ function checkAnswer(event, answer, timerCount) {
     }
     else {
         feedback.innerText = "Try again!"
+        timer--;
     }
+    set++
+    runQuiz(timer,set);
 };
