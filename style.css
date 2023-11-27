@@ -1,0 +1,26 @@
+body {
+    background-color: darkslategray;
+    color: lightyellow;
+}
+
+.wrapper {
+    padding: 30px;
+}
+
+header {
+    justify-content: space-around;
+    display: flexbox;
+}
+
+button {
+    background-color:brown;
+    color: lightyellow;
+    border: none;
+}
+
+.card{
+    text-align: center;
+    background-color: rgb(73, 120, 120);
+    border-radius: 4px;
+}
+
