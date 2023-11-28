@@ -106,6 +106,8 @@ var quizState = {
     time: 6,
     currentQuestion: 0,
     clickedAnswer: 0,
+    timerRunning: false,
+    timerStop: false
 }
 // stores keys of scores to prevent repeats
 var storedList = [];
@@ -153,12 +155,15 @@ document.getElementById("score").addEventListener("click", (event)=> {
 });
 
 function startGame(event) {
+    quizState.time = 60;
+    quizState.currentQuestion = 0;
+    counterTime.innerText = "Timer: " + quizState.time;
     console.log(`starting game`);
     startMenu.style.display = "none";
     timerUI.style.display = "inline-block";
     quizMenu.style.display = "block";
-    quizState.time = 6;
-    quizState.currentQuestion = 0;
+    checkTimer();
+    runTimer();
     renderQuestion();
     console.log(timer);
 };
@@ -171,8 +176,7 @@ function renderQuestion(){
     var answer3 = question.getAnswer(2);
     var answer4 = question.getAnswer(3);
 
-    //updates timer
-    counterTime.innerText = "Timer: " + quizState.time ;
+    
     
     // Updates html elements with appropriate values
     q.innerText = question.getDescription();
@@ -181,6 +185,26 @@ function renderQuestion(){
     a3.innerText = answer3;
     a4.innerText = answer4;
 
+}
+
+function checkTimer(){
+    if(quizState.timerRunning){
+        quizState.timerRunning = false;
+        quizState.timerStop = true;
+    }
+}
+function runTimer(){
+    console.log("Timer started");
+    var timer = setInterval(function(){
+        //updates timer
+        counterTime.innerText = "Timer: " + quizState.time;
+        quizState.time--;
+        if (quizState.time <= 0 || quizState.timerStop) {
+            clearInterval(timer);
+            quizState.timerStop = false;
+        }
+    }, 1000)
+    quizState.timerRunning = true;
 }
 
 function updateState() {
@@ -302,7 +326,6 @@ function getScore(){
     console.log(`Returned score ${returnScore}`);
     return returnScore;
 }
-
 /* TODO
 fix looping issues in runQuiz
 display scores
